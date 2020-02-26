@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             deltaX = 0;
         if (deltaY < 2)
             deltaY = 0;
-        if (deltaZ > vibrateThreshold || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold)) {
+        if (deltaX > vibrateThreshold || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold)) {
             v.vibrate(50);
         }
             lastX = event.values[0];

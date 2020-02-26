@@ -4,6 +4,7 @@
     package="gov.unsc.lupo.lightsaber">
 
     <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
