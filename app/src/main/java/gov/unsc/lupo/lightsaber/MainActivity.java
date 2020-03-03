@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         onMp = MediaPlayer.create(this, R.raw.saber_on);
-        offMp = MediaPlayer.create(this, R.raw.saber_crash);
+        offMp = MediaPlayer.create(this, R.raw.saber_off);
         crashMp = MediaPlayer.create(this, R.raw.saber_crash);
         vibrateThreshold = sensor.getMaximumRange() * 2 / 3;
         v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
