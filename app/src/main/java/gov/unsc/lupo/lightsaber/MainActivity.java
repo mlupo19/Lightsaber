@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int change) {}
 
     public void clickOn(View view) {
-        if (on && lastY < -5) {
+        if (on && lastY < -8) {
             playOffSound();
             on = false;
-        } else if (!on && lastY > -5) {
+        } else if (!on && lastY < -8) {
             playOnSound();
             on = true;
         }
