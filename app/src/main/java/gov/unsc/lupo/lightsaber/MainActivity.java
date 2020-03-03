@@ -27,16 +27,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float vibrateThreshold = 0;
     private TextView debugTv;
 
-    /* TODO:
-        - Write comment
-        - get rid of debug textview
-        - add off sound */
-
     private MediaPlayer onMp, offMp, crashMp;
 
 
-    /*  This app uses the accelerometer to detect when the phone is swung or suddenly stops.  To activate/deactivate the lightsaber, press the lightsaber.
-
+    /*
+        This app uses the accelerometer to detect when the phone is swung or suddenly stops.
+        To activate/deactivate the lightsaber, press the lightsaber.
+        Due to problems with Github, we had to submit the app one night late.
 
      */
     @Override
@@ -93,10 +90,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int change) {}
 
     public void clickOn(View view) {
-        if (on) {
+        if (on && lastY < -5) {
             playOffSound();
             on = false;
-        } else {
+        } else if (!on && lastY > -5) {
             playOnSound();
             on = true;
         }
@@ -111,3 +108,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 }
+
