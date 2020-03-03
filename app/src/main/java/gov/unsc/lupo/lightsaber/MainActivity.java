@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         onMp = MediaPlayer.create(this, R.raw.saber_on);
         offMp = MediaPlayer.create(this, R.raw.saber_off);
         crashMp = MediaPlayer.create(this, R.raw.saber_crash);
-        vibrateThreshold = sensor.getMaximumRange() * 2 / 3;
+        vibrateThreshold = sensor.getMaximumRange() / 2;
         v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         debugTv = findViewById(R.id.textView);
         sensorManager.registerListener(this, sensor, 100);
@@ -54,14 +54,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        if (!on)
-            return;
         deltaX = Math.abs(lastX - event.values[0]);
         deltaY = Math.abs(lastY - event.values[1]);
         deltaZ = Math.abs(lastZ - event.values[2]);
-        if (deltaX > vibrateThreshold || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold)) {
-            v.vibrate(50);
+        if (on && (deltaX > vibrateThreshold || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold))) {
             playCrashSound();
+            v.vibrate(50);
         }
         lastX = event.values[0];
         lastY = event.values[1];
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void run() {
                 if (deltaX > dxMax)
                     dxMax = deltaX;
-                debugTv.setText("X: " + dxMax + " Y: " + deltaY + " Z: " + deltaZ);
+                debugTv.setText("X: " + lastX + " Y: " + lastY + " Z: " + lastZ);
             }
         });
     }
@@ -90,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int change) {}
 
     public void clickOn(View view) {
-        if (on && lastY < -8) {
+        if (on && lastY > 8) {
             playOffSound();
             on = false;
-        } else if (!on && lastY < -8) {
+        } else if (!on && lastY > 8) {
             playOnSound();
             on = true;
         }
